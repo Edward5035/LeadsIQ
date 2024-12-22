@@ -1,0 +1,262 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard - TraffiX AI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Title Section -->
+    
+    <!-- Cards Section -->
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-5">
+            <!-- Target Buyers Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">Target Buyers</h5>
+                        <p class="card-text text-muted">Use advanced filters to locate the ideal buyers for your business.</p>
+                        <a href="{{ url_for('leads_generator') }}" class="btn btn-primary rounded-pill card-btn">Find Buyers</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Competitor Check Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-binoculars fa-3x text-info mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">Competitor Check</h5>
+                        <p class="card-text text-muted">Evaluate and prioritize leads based on their potential value.</p>
+                        <a href="{{ url_for('competitor_analysis') }}" class="btn btn-info rounded-pill card-btn">Get Insights</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LinkedIn Hunt Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-address-book fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">LinkedIn Hunt</h5>
+                        <p class="card-text text-muted">Quickly find verified contact information for your target audience.</p>
+                        <a href="{{ url_for('find_contacts') }}" class="btn btn-warning rounded-pill card-btn">Find Contacts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-5 mt-4">
+            <!-- Social Scout Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-friends fa-3x text-success mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">Social Scout</h5>
+                        <p class="card-text text-muted">Identify and connect with decision-makers on Social Media.</p>
+                        <a href="{{ url_for('social_media_lookup') }}" class="btn btn-success rounded-pill card-btn">Analyze Profiles</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Boost Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">SEO Boost</h5>
+                        <p class="card-text text-muted">Enhance your online visibility to attract high-quality leads effortlessly.</p>
+                        <a href="{{ url_for('seo_boost') }}" class="btn btn-success rounded-pill card-btn">Optimize SEO</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outreach Pro Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-envelope fa-3x text-info mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">Outreach Pro</h5>
+                        <p class="card-text text-muted">Reach out to multiple leads simultaneously with ease.</p>
+                        <a href="{{ url_for('bulk_email_sender') }}" class="btn btn-info rounded-pill card-btn">Send Emails</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Check Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-check-circle fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">Email Check</h5>
+                        <p class="card-text text-muted">Quickly validate the email addresses of your leads.</p>
+                        <a href="{{ url_for('email_validation') }}" class="btn btn-warning rounded-pill card-btn">Verify Emails</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone Check Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-phone-alt fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">Phone Check</h5>
+                        <p class="card-text text-muted">Ensure the phone numbers of your leads are accurate.</p>
+                        <a href="{{ url_for('phone_validation') }}" class="btn btn-warning rounded-pill card-btn">Verify Phones</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Desk Card -->
+            <div class="col">
+                <div class="card h-100 shadow-lg border" style="border-color: #8B4513;">
+                    <div class="card-body text-center">
+                        <i class="fas fa-question-circle fa-3x text-info mb-3"></i>
+                        <h5 class="card-title text-dark fw-bold">Help Desk</h5>
+                        <p class="card-text text-muted">Get support and find answers to your questions.</p>
+                        <a href="{{ url_for('help_center') }}" class="btn btn-info rounded-pill card-btn">Get Help</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial Section -->
+    <div class="mt-5">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-dark text-light text-center">
+                <h4 class="mb-0">Quick Start Guide</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-tachometer-alt fa-3x text-primary mb-3"></i>
+                        <h6 class="fw-bold">Dashboard Overview</h6>
+                        <p class="text-muted">Access all the powerful features TraffiX AI has to offer.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-user-check fa-3x text-success mb-3"></i>
+                        <h6 class="fw-bold">Find Buyers</h6>
+                        <p class="text-muted">Use filters to discover the best potential clients for your business.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+                        <h6 class="fw-bold">Enhance Visibility</h6>
+                        <p class="text-muted">Improve SEO to attract leads effortlessly.</p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-phone-alt fa-3x text-danger mb-3"></i>
+                        <h6 class="fw-bold">Validate Contacts</h6>
+                        <p class="text-muted">Ensure emails and phone numbers are accurate.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-envelope fa-3x text-info mb-3"></i>
+                        <h6 class="fw-bold">Mass Outreach</h6>
+                        <p class="text-muted">Reach out to prospects with ease.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-cogs fa-3x text-secondary mb-3"></i>
+                        <h6 class="fw-bold">Support Hub</h6>
+                        <p class="text-muted">Get expert tips, troubleshooting, and FAQs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Cards Section Styles */
+.container {
+    padding-left: 30px; /* Adding more space on the left */
+    padding-right: 30px;
+}
+
+.card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card .fa {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.card .btn {
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    width: 100%;
+}
+
+.card .card-btn {
+    display: block;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+    }
+
+    .card .fa {
+        font-size: 2rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .card .btn {
+        width: 100%;
+    }
+}
+
+.card {
+    border-radius: 12px;
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.btn {
+    margin: 0 5px;
+}
+.card-header {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+</style>
+{% endblock %}

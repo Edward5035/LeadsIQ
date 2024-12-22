@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <h1 class="text-center my-8 text-red-500">Find Contacts</h1>
+    <p class="text-center mb-10 text-gray-400">Search for individuals associated with a company to connect and network effectively.</p>
+    
+    <!-- Search Form -->
+    <form id="find-contacts-form" class="flex flex-col items-center mb-10" method="POST" action="{{ url_for('social_scout') }}">
+        <div class="w-full max-w-lg mb-4">
+            <input type="text" name="social_media_handle" class="form-input w-full rounded-full shadow-sm border-2 border-red-500" 
+                   placeholder="e.g., johndoe" 
+                   aria-label="Search" 
+                   aria-describedby="search-button" 
+                   required>
+        </div>
+        <button class="flex items-center justify-center w-full max-w-xs bg-red-500 text-white rounded-full shadow-lg px-4 py-2" 
+                type="submit" 
+                id="search-button">
+            <i class="fas fa-search mr-2"></i>
+            <span>Find Contacts</span>
+            <!-- Loader Icon -->
+            <span id="loader" class="spinner-border spinner-border-sm ml-2 hidden" role="status" aria-hidden="true"></span>
+        </button>
+    </form>
+
+    <!-- Results Section -->
+    <div class="results-section max-w-4xl mx-auto">
+        <!-- Search Results Card -->
+        <div class="card bg-gray-800 text-white shadow-lg mx-auto mb-8 rounded-lg border-2 border-red-500">
+            <div class="card-body p-6">
+                <h5 class="text-center text-red-500">Search Results</h5>
+                <hr class="my-4 border-t-2 border-red-500">
+                {% if not leads %}
+                <p class="text-center text-gray-400">
+                    Enter a social media handle and click "Find Contacts" to generate results.
+                </p>
+                {% else %}
+                <ul class="list-group list-group-flush" id="results-list">
+                    {% for lead in leads %}
+                    <li class="list-group-item text-gray-400">
+                        <strong class="text-xl text-red-500">{{ lead['social_media_handle'] }}</strong><br>
+                        <strong class="text-gray-500">Profile URL:</strong> <a href="{{ lead['profile_url'] }}" target="_blank" class="text-red-500">{{ lead['profile_url'] }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <!-- Copy and Download Buttons -->
+                <div class="text-center mt-8">
+                    <button id="copy-results" class="bg-red-500 text-white rounded-full shadow-lg mx-2 px-4 py-2">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <button id="download-results" class="bg-red-500 text-white rounded-full shadow-lg mx-2 px-4 py-2">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .results-section {
+        max-width: 1000px; /* Ensure the results section does not exceed this width */
+        margin: 0 auto; /* Center align */
+    }
+
+    .card {
+        border-radius: 15px;
+        border: 2px solid #f87171; /* Red border */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px); /* Floating effect */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Deepened shadow */
+    }
+
+    #results-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    #results-list li {
+        display: block;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Adjusting the search button size based on screen width */
+    @media (max-width: 768px) {
+        #search-button {
+            width: 100%; /* Full width on mobile */
+            font-size: 1.2rem; /* Bigger text for better visibility */
+        }
+
+        .input-group {
+            margin-bottom: 15px; /* Spacing between search input and button */
+        }
+    }
+
+    @media (min-width: 768px) {
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #search-button {
+            max-width: 200px; /* Smaller on larger screens */
+            width: auto;
+        }
+    }
+</style>
+
+<script>
+    document.getElementById('find-contacts-form').addEventListener('submit', function() {
+        // Show the loader when the form is submitted
+        document.getElementById('loader').style.display = 'inline-block';
+    });
+
+    document.getElementById('copy-results').addEventListener('click', function() {
+        let resultsText = '';
+        const results = document.querySelectorAll('#results-list li');
+        results.forEach(result => {
+            resultsText += result.innerText + '\n\n';
+        });
+
+        navigator.clipboard.writeText(resultsText).then(() => {
+            alert('Results copied to clipboard!');
+        }, (err) => {
+            alert('Failed to copy results: ', err);
+        });
+    });
+
+    document.getElementById('download-results').addEventListener('click', function() {
+        let resultsText = '';
+        const results = document.querySelectorAll('#results-list li');
+        results.forEach(result => {
+            resultsText += result.innerText + '\n\n';
+        });
+
+        const blob = new Blob([resultsText], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'contacts.txt';
+        link.click();
+    });
+</script>
+{% endblock %}

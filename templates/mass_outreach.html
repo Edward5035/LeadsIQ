@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}Mass Outreach{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4 text-center text-red-500">{{ title }}</h1>
+        <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label for="sender_email" class="block text-gray-700 text-sm font-bold mb-2">Sender Email:</label>
+                <input type="email" id="sender_email" name="sender_email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-red-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-red-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="recipient_emails" class="block text-gray-700 text-sm font-bold mb-2">Recipient Emails (comma-separated):</label>
+                <textarea id="recipient_emails" name="recipient_emails" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-red-500" rows="3" required></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="subject" class="block text-gray-700 text-sm font-bold mb-2">Subject:</label>
+                <input type="text" id="subject" name="subject" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-red-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="body" class="block text-gray-700 text-sm font-bold mb-2">Email Body:</label>
+                <textarea id="body" name="body" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-red-500" rows="5" required></textarea>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Send Emails</button>
+            </div>
+        </form>
+
+        <!-- Card Section -->
+        
+    </div>
+{% endblock %}

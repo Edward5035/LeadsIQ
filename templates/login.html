@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Importing Google Fonts (Special Font for the Logo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Custom styling for the logo */
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 2rem; /* Ensure the logo scales properly */
+            color: red; /* Red color for the text */
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .logo i {
+            margin-right: 12px; /* Space between the icon and text */
+            font-size: 5rem; /* Increased icon size */
+        }
+
+        .logo::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: red;
+            bottom: -15px;
+            left: 0;
+        }
+
+        /* Ensure logo scales well on different screen sizes */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.5rem; /* Smaller text on smaller screens */
+            }
+
+            .logo i {
+                font-size: 4rem; /* Larger icon on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body class="bg-cover bg-center flex justify-center items-center h-screen p-4" style="background-image: url('https://images.unsplash.com/photo-1661793853662-bb363cbff451?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+
+    <div class="absolute inset-0 bg-gray-800 bg-opacity-60"></div> <!-- Overlay for dark background -->
+
+    <div class="relative z-10 bg-gray-800 p-8 rounded-lg max-w-md w-full shadow-lg shadow-red-500">
+        <!-- Logo Section -->
+        <div class="logo mb-8">
+            <i class="fas fa-robot"></i>
+            <span>SMART AI</span>
+        </div>
+
+        <!-- Login Form -->
+        <form method="post">
+            <div class="mb-6">
+                <label for="username" class="block text-white text-xl font-semibold mb-2">Username</label>
+                <input type="text" id="username" name="username" class="w-full px-4 py-3 bg-gray-700 text-white rounded-md border-2 border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="password" class="block text-white text-xl font-semibold mb-2">Password</label>
+                <input type="password" id="password" name="password" class="w-full px-4 py-3 bg-gray-700 text-white rounded-md border-2 border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg" required>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-red-500 text-white rounded-md text-lg font-semibold hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Login</button>
+        </form>
+    </div>
+
+    <!-- Include Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>

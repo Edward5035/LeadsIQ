@@ -1,0 +1,174 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-12">
+    <!-- Main Title -->
+    <h1 class="text-center text-4xl font-bold text-red-500 mb-12">Unlock Premium Buyers</h1>
+
+    <!-- Form Card -->
+    <div class="max-w-4xl mx-auto p-8 bg-gray-800 border-2 border-red-500 rounded-lg shadow-xl mb-12">
+        <h2 class="text-center text-2xl font-semibold text-gray-200 mb-8">Find the Right Customers for Your Business</h2>
+
+        <form id="discover-form" method="POST" action="{{ url_for('search') }}">
+            <!-- Industry Section -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-200">Industry & Region</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="specialty" class="block text-gray-400">Industry</label>
+                        <div class="relative">
+                            <input type="text" name="specialty" id="specialty" class="w-full p-4 bg-gray-700 text-gray-200 border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300" placeholder="e.g., Home Renovations" required>
+                            <i class="fas fa-industry absolute top-3 right-3 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="location" class="block text-gray-400">Region</label>
+                        <div class="relative">
+                            <input type="text" name="location" id="location" class="w-full p-4 bg-gray-700 text-gray-200 border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300" placeholder="e.g., San Francisco, CA" required>
+                            <i class="fas fa-map-marker-alt absolute top-3 right-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Category Section -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-200">Business Details</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="business_type" class="block text-gray-400">Business Category</label>
+                        <select id="business_type" class="w-full p-4 bg-gray-700 text-gray-200 border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300">
+                            <option value="b2b">B2B</option>
+                            <option value="retail">Retail</option>
+                            <option value="services">Services</option>
+                            <option value="education">Education</option>
+                            <option value="healthcare">Healthcare</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="buyer_type" class="block text-gray-400">Customer Type</label>
+                        <select id="buyer_type" class="w-full p-4 bg-gray-700 text-gray-200 border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300">
+                            <option value="corporate">Corporate</option>
+                            <option value="individuals">Individuals</option>
+                            <option value="government">Government</option>
+                            <option value="nonprofit">Non-profit</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Section with Slider and Display -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-200">Budget Range</h3>
+                <div class="relative">
+                    <input type="range" id="budget_range" min="1000" max="50000" step="1000" class="w-full h-2 bg-red-500 rounded-full appearance-none cursor-pointer" value="10000" onchange="updateBudgetValue()">
+                    <div class="flex justify-between text-gray-400 mt-2">
+                        <span>$1,000</span>
+                        <span>$50,000</span>
+                    </div>
+                    <!-- Display the selected price range -->
+                    <div class="text-center mt-4">
+                        <span class="text-red-500 font-semibold" id="budget_value">$10,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button with Loader -->
+            <div class="flex justify-center mt-8">
+                <button type="submit" id="discover-button" class="flex items-center justify-center bg-red-500 text-white px-8 py-4 rounded-full hover:bg-red-600 focus:outline-none relative transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-search mr-3"></i>
+                    <span>Find Buyers</span>
+                    <div id="loader" class="absolute inset-0 flex justify-center items-center" style="display: none;">
+                        <div class="w-6 h-6 border-4 border-t-transparent border-white border-solid rounded-full animate-spin"></div>
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Results Card -->
+    <div class="max-w-4xl mx-auto p-8 bg-gray-800 border-2 border-red-500 rounded-lg shadow-xl mb-12">
+        <h5 class="text-center text-xl font-semibold text-gray-200 mb-6">Your Premium Buyer List</h5>
+        <hr class="border-t-2 border-red-500 mb-6">
+
+        {% if not session.get('leads') %}
+            <!-- Placeholder content when no leads are available -->
+            <p class="text-center text-gray-500">Fill out the form above to discover your ideal buyers.</p>
+            <div class="max-h-96 overflow-y-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Placeholder Card 1 -->
+                    <div class="bg-white p-6 border border-red-500 rounded-lg shadow-sm">
+                        <h6 class="text-red-500 font-bold text-lg mb-2">
+                            <i class="fas fa-building mr-2"></i>Placeholder Co.
+                        </h6>
+                        <p><i class="fas fa-envelope mr-2"></i>Email: info@placeholder.com</p>
+                        <p><i class="fas fa-phone-alt mr-2"></i>Phone: (123) 456-7890</p>
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>Address: 123 Placeholder Street</p>
+                        <p><i class="fas fa-share mr-2"></i>Social Media: @placeholder</p>
+                        <a href="#" class="bg-red-500 text-white text-sm px-4 py-2 rounded-full mt-3 block text-center hover:bg-red-600">
+                            <i class="fas fa-globe mr-2"></i>Visit Website
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <!-- Real results when leads are available -->
+            <div class="max-h-96 overflow-y-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for lead in session['leads'] %}
+                    <div class="bg-white p-6 border border-red-500 rounded-lg shadow-sm">
+                        <h6 class="text-red-500 font-bold text-lg mb-2">
+                            <i class="fas fa-building mr-2"></i>{{ lead['info']['company_name'] or "N/A" }}
+                        </h6>
+                        <p><i class="fas fa-envelope mr-2"></i>Email: {{ lead['info']['emails'] | join(', ') or 'None' }}</p>
+                        <p><i class="fas fa-phone-alt mr-2"></i>Phone: {{ lead['info']['phone_numbers'] | join(', ') or 'None' }}</p>
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>Address: {{ lead['info']['addresses'] | join(', ') or 'None' }}</p>
+                        <p><i class="fas fa-share mr-2"></i>Social Media: {{ lead['info']['social_media'] | join(', ') or 'None' }}</p>
+                        <a href="{{ lead['link'] }}" target="_blank" class="bg-red-500 text-white text-sm px-4 py-2 rounded-full mt-3 block text-center hover:bg-red-600">
+                            <i class="fas fa-globe mr-2"></i>Visit Website
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('loader');
+    const discoverForm = document.getElementById('discover-form');
+
+    discoverForm.addEventListener('submit', (event) => {
+        event.preventDefault(); 
+        
+        const specialty = document.querySelector('input[name="specialty"]').value;
+        const location = document.querySelector('input[name="location"]').value;
+
+        const combinedQuery = `${specialty} in ${location}`;
+        const combinedInput = document.createElement('input');
+        combinedInput.type = 'hidden';
+        combinedInput.name = 'business_type';
+        combinedInput.value = combinedQuery;
+
+        discoverForm.appendChild(combinedInput);
+        loader.style.display = 'inline-block';
+        discoverForm.submit();
+    });
+
+    // Update budget value display
+    const budgetRange = document.getElementById('budget_range');
+    const budgetValue = document.getElementById('budget_value');
+    function updateBudgetValue() {
+        budgetValue.textContent = `$${budgetRange.value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+    }
+
+    budgetRange.addEventListener('input', updateBudgetValue);
+    updateBudgetValue(); // Initialize the value on page load
+});
+</script>
+
+{% endblock %}

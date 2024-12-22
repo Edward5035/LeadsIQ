@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <h1 class="text-center text-4xl font-bold text-red-500 mb-8">Competitor Analysis</h1>
+    <p class="text-center text-gray-200 text-lg mb-12">Gain insights into your competitors and stay ahead in the market.</p>
+    
+    <!-- Competitor Analysis Form -->
+    <form id="competitor-analysis-form" class="bg-gray-800 shadow-lg p-8 rounded-lg border-2 border-red-500 max-w-2xl mx-auto" method="POST" action="{{ url_for('competitor_analysis') }}">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="business_type" class="block text-lg font-semibold text-red-500 mb-2">Business Type</label>
+                <input type="text" id="business_type" name="business_type" class="w-full px-4 py-2 border-2 border-red-500 rounded-full focus:outline-none focus:ring-2 focus:ring-red-300" placeholder="Business (e.g., Bakery)" required>
+            </div>
+            <div>
+                <label for="location" class="block text-lg font-semibold text-red-500 mb-2">Location</label>
+                <input type="text" id="location" name="location" class="w-full px-4 py-2 border-2 border-red-500 rounded-full focus:outline-none focus:ring-2 focus:ring-red-300" placeholder="Location (City/Town, Country)" required>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div>
+                <label for="industry" class="block text-lg font-semibold text-red-500 mb-2">Industry</label>
+                <input type="text" id="industry" class="w-full px-4 py-2 border-2 border-red-500 rounded-full focus:outline-none focus:ring-2 focus:ring-red-300" placeholder="Industry" />
+            </div>
+            <div>
+                <label for="annual_revenue" class="block text-lg font-semibold text-red-500 mb-2">Target Market</label>
+                <input type="text" id="annual_revenue" class="w-full px-4 py-2 border-2 border-red-500 rounded-full focus:outline-none focus:ring-2 focus:ring-red-300" placeholder="Target Market" />
+            </div>
+        </div>
+        <button class="w-full bg-red-500 text-white py-3 rounded-full mt-8 hover:bg-red-600 transition-all ease-in-out" type="submit">
+            <i class="fas fa-search mr-2"></i>Analyze Competitors
+            <span id="loader" class="spinner-border spinner-border-sm ml-2" style="display: none;"></span>
+        </button>
+    </form>
+
+    <!-- Competitor Insights Section -->
+    <div class="mt-12">
+        <div class="bg-gray-800 p-8 shadow-lg rounded-lg border-2 border-red-500">
+            <h5 class="text-center text-2xl font-semibold text-red-500 mb-6">Competitor Insights</h5>
+            <hr class="border-t-2 border-red-500 mb-6">
+            <!-- Placeholder for the dynamically generated insights -->
+            <div id="insights-content" class="max-h-96 overflow-y-auto text-gray-200">
+                {% if search_results %}
+                <h6 class="text-center text-lg font-semibold text-red-500 mb-4">Ranked Competitor Information</h6>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for result in search_results %}
+                    <div class="bg-gray-700 shadow-lg p-6 rounded-lg border-2 border-red-500">
+                        <h5 class="text-xl font-semibold text-red-500 mb-4">{{ result.business_name }}</h5>
+                        <p><strong class="text-red-500">Description:</strong> {{ result.description }}</p>
+                        <p><strong class="text-red-500">Services:</strong></p>
+                        <ul class="list-disc pl-6">
+                            {% for service in result.services %}
+                            <li>{{ service }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center text-gray-400">Enter a business type and location to generate insights.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('competitor-analysis-form').addEventListener('submit', function() {
+        document.getElementById('loader').style.display = 'inline-block';
+    });
+</script>
+
+{% endblock %}

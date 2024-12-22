@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <h1 class="text-center text-4xl font-semibold text-yellow-500 mb-4">Ad Campaign Booster</h1>
+    <p class="text-center text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+        Optimize your ad campaigns with targeted keywords to boost your sales this Christmas season.
+    </p>
+
+    <!-- Search Form -->
+    <form id="ad-campaign-form" class="max-w-4xl mx-auto bg-white shadow-lg p-6 rounded-lg border-2 border-yellow-500" method="POST" action="{{ url_for('Ad_Campaign_Booster') }}">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Business Type Input -->
+            <div>
+                <label for="business-type" class="block text-lg font-semibold text-gray-800 mb-2">Business Type</label>
+                <input type="text" id="business-type" class="w-full px-4 py-2 border-2 border-yellow-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300" placeholder="E.g., 'Salon'" required>
+            </div>
+            <!-- Location Input -->
+            <div>
+                <label for="location" class="block text-lg font-semibold text-gray-800 mb-2">Target Location</label>
+                <input type="text" id="location" class="w-full px-4 py-2 border-2 border-yellow-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300" placeholder="E.g., 'Toronto'" required>
+            </div>
+            <!-- Ranking Keywords Input -->
+            <div>
+                <label for="ranking-keywords" class="block text-lg font-semibold text-gray-800 mb-2">Ranking Keywords</label>
+                <input type="text" id="ranking-keywords" class="w-full px-4 py-2 border-2 border-yellow-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300" placeholder="E.g., 'Best Haircuts'" required>
+            </div>
+        </div>
+
+        <!-- Hidden Input for Combined Value -->
+        <input type="hidden" name="business_name" id="business-name" value="">
+
+        <!-- Submit Button -->
+        <button class="w-full mt-6 bg-yellow-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-yellow-600 transition-all duration-200 flex items-center justify-center" type="submit">
+            <i class="fas fa-rocket mr-2"></i> Analyze My Ad Campaign
+            <span id="loader" class="spinner-border spinner-border-sm ml-2" style="display: none;"></span>
+        </button>
+    </form>
+
+    <!-- Keywords Section -->
+    <div class="keywords-section mt-12">
+        <div class="bg-white p-6 shadow-lg rounded-lg border-2 border-yellow-500">
+            <h5 class="text-center text-2xl font-semibold text-yellow-500 mb-6">Your Keyword Insights</h5>
+            <p class="text-center text-gray-600 mb-6">
+                Discover how your keywords perform and identify growth opportunities for your ads.
+            </p>
+            <hr class="border-t-2 border-yellow-500 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="overflow-y-auto max-h-96">
+                    <h6 class="text-center text-lg font-semibold text-gray-800 mb-4">Short-Tail Keywords</h6>
+                    <ul class="space-y-4">
+                        {% for keyword in short_tail %}
+                        <li class="text-gray-700">
+                            {{ keyword }} - {{ keyword_percentages[keyword]|round(2) }}%
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="overflow-y-auto max-h-96">
+                    <h6 class="text-center text-lg font-semibold text-gray-800 mb-4">Long-Tail Keywords</h6>
+                    <ul class="space-y-4">
+                        {% for keyword in long_tail %}
+                        <li class="text-gray-700">
+                            {{ keyword }} - {{ keyword_percentages[keyword]|round(2) }}%
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Keywords Section -->
+    <div class="popular-keywords-section mt-12">
+        <div class="bg-white p-6 shadow-lg rounded-lg border-2 border-yellow-500">
+            <h5 class="text-center text-2xl font-semibold text-yellow-500 mb-6">Trending Christmas Keywords</h5>
+            <p class="text-center text-gray-600 mb-6">
+                Get inspired by Christmas-specific keyword trends to enhance your ad targeting.
+            </p>
+            <hr class="border-t-2 border-yellow-500 mb-6">
+            <div class="overflow-y-auto max-h-96">
+                <ul class="space-y-4">
+                    {% for keyword, percentage in keyword_percentages.items() %}
+                    <li class="text-gray-700">
+                        {{ keyword }} - {{ percentage|round(2) }}%
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seasonal Keyword Insights Section -->
+    <div class="seasonal-keywords-section mt-12">
+        <div class="bg-white p-6 shadow-lg rounded-lg border-2 border-yellow-500">
+            <h5 class="text-center text-2xl font-semibold text-yellow-500 mb-6">Holiday Campaign Insights</h5>
+            <p class="text-center text-gray-600 mb-6">
+                Optimize your holiday sales strategy with top Christmas keywords.
+            </p>
+            <hr class="border-t-2 border-yellow-500 mb-6">
+            <div class="overflow-y-auto max-h-96">
+                <ul class="space-y-4">
+                    {% for seasonal_term in seasonal_terms %}
+                    <li class="text-gray-700">
+                        {{ seasonal_term }} - Popular this season
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Concatenate inputs into a singale hidden value before submission
+    document.getElementById('ad-campaign-form').addEventListener('submit', function (event) {
+        const businessType = document.getElementById('business-type').value.trim();
+        const location = document.getElementById('location').value.trim();
+        const rankingKeywords = document.getElementById('ranking-keywords').value.trim();
+
+        // Combine inputs into "business name"
+        const combinedValue = `${businessType} in ${location} - Keywords: ${rankingKeywords}`;
+        document.getElementById('business-name').value = combinedValue;
+
+        // Show the loader animation
+        document.getElementById('loader').style.display = 'inline-block';
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard - SMART AI{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <!-- Insights Card (No height change) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-gradient-to-r from-orange-500 to-blue-500 rounded-lg shadow-lg p-6 text-white relative">
+            <h5 class="text-2xl font-bold">Today's Insights</h5>
+            <p class="text-md mb-4">At a glance, monitor the key metrics that matter most to your business performance.</p>
+            <div class="grid grid-cols-1 gap-4">
+                <div class="bg-gray-800 p-4 rounded-lg shadow-md text-center">
+                    <h6 class="text-lg">New Leads</h6>
+                    <h4 class="text-4xl font-bold text-orange-400">{{ session.get('lead_count', 0) }}</h4>
+                </div>
+            </div>
+            <div class="hidden md:block absolute right-0 bottom-0 p-6">
+                <i class="fas fa-chart-line fa-5x opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lead Breakdown Chart Card (Only this card's height changes) -->
+    <div class="bg-gray-800 rounded-lg shadow-lg mb-6">
+        <div class="bg-gray-900 text-white p-4 rounded-t-lg text-center">
+            <h4 class="text-xl">Buyer Breakdown</h4>
+        </div>
+        <div class="p-6">
+            <canvas id="leadChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Quick Start Guide Section -->
+    <div class="bg-gray-800 rounded-lg shadow-lg">
+        <div class="bg-gray-900 text-white p-4 rounded-t-lg text-center">
+            <h4 class="text-xl">Quick Start Guide</h4>
+        </div>
+        <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for icon, title, description, color in [
+                ('fa-tachometer-alt', 'Dashboard Overview', 'View all Metrics for efficiency.', 'text-yellow-400'),
+                ('fa-user-check', 'Find Ideal Buyers', 'Use AI to generate high-quality leads.', 'text-green-400'),
+                ('fa-chart-line', 'Boost SEO', 'Increase visibility with traffic apps for major platforms.', 'text-blue-400'),
+                ('fa-envelope', 'Email Campaigns', 'Reach out to multiple buyers for maximum high conversion.', 'text-blue-500'),
+                ('fa-user-friends', 'Competitors', 'Engage leads respectively and improve your conversion as you spy on your competitor services.', 'text-yellow-400'),
+                ('fa-cogs', 'Support Hub', 'Get expert help and FAQs for optimal results.', 'text-gray-400')
+            ] %}
+                <div class="bg-gray-700 p-4 rounded-lg shadow-md text-center">
+                    <i class="fas {{ icon }} fa-3x {{ color }} mb-2"></i>
+                    <h6 class="text-lg font-bold text-white">{{ title }}</h6>
+                    <p class="text-gray-300">{{ description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var ctx = document.getElementById('leadChart').getContext('2d');
+
+    var leadChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Emails', 'Phone Numbers', 'Addresses', 'Social Media', 'Company Names'],
+            datasets: [{
+                label: 'Lead Breakdown',
+                data: [
+                    {{ session.get('email_count', 0) }},
+                    {{ session.get('phone_count', 0) }},
+                    {{ session.get('address_count', 0) }},
+                    {{ session.get('social_media_count', 0) }},
+                    {{ session.get('company_name_count', 0) }}
+                ],
+                backgroundColor: '#36A2EB',
+                borderColor: '#FFFFFF',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: '#ffffff'  // Change legend text color to white
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw + ' leads';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#ffffff'  // Change x-axis text color to white
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#ffffff'  // Change y-axis text color to white
+                    }
+                }
+            }
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        leadChart.resize();
+    });
+</script>
+
+<style>
+    .insight-box:hover {
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .chart-card-body {
+        height: 400px;
+        padding: 2rem;
+    }
+</style>
+
+{% endblock %}

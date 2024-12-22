@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart AI{% endblock %}</title>
+
+    <!-- Roboto font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes full height */
+        }
+
+        .top-nav {
+            background-color: #000000; /* Black background */
+            box-shadow: none; /* Removed shadow */
+            z-index: 50;
+        }
+
+        .sidebar {
+            background-color: #000000; /* Black background */
+            padding-top: 1rem;
+            padding-right: 0.5rem; /* Reduced right padding */
+        }
+
+        .sidebar-item {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-left: 4px solid transparent;
+            font-size: 1rem; /* Increased font size */
+            margin-bottom: 1rem; /* Add spacing between items */
+            background: #ecf0f3; /* Light background for neumorphism */
+            border-radius: 15px;
+            box-shadow: none; /* Removed box-shadow */
+            padding: 0.5rem; /* Adjusted padding to balance space */
+        }
+
+        .sidebar-item.active,
+        .sidebar-item:hover {
+            background-color: #e74c3c; /* Red for hover and active states */
+            color: white;
+            transform: translateY(-2px);
+            border-left-color: #e74c3c; /* Red highlight border color */
+        }
+
+        .sidebar-item.active i,
+        .sidebar-item:hover i {
+            color: white; /* Change icon color to white when active or hovered */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .sidebar-item i {
+            margin-right: 1rem; /* Add margin to icons */
+            font-size: 2.5rem; /* Increased icon size */
+            color: #e74c3c; /* Default icon color is red */
+            transition: transform 0.1s ease, box-shadow 0.3s ease;
+        }
+
+        /* Icon Colors */
+        .fa {
+            color: #e74c3c; /* Default red color for all icons */
+        }
+
+        /* 3D Effect */
+        .fa {
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sidebar-item:hover i {
+            transform: translateY(-3px); /* Simulates a floating effect */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Adds shadow for 3D look */
+        }
+
+        /* Log Out item should always have a red background */
+        .logout-item {
+            background-color: #e74c3c !important; /* Keep the background always red */
+            color: white !important; /* Keep text white */
+            border-left-color: #e74c3c !important; /* Keep the border color red */
+        }
+
+        /* Log Out icon */
+        .logout-item i {
+            color: white !important; /* Change icon color to white when active */
+        }
+
+        /* Adjust padding of sidebar items */
+        .sidebar-item {
+            padding-right: 1.25rem; /* Moderate padding for space around the content */
+        }
+
+        /* Ensure all icons are the same size */
+        .top-nav i {
+            font-size: 2.5rem; /* Increased size of the top navbar icon */
+            color: #e74c3c; /* Red color for top navbar icons */
+        }
+
+        .sidebar-item i {
+            font-size: 2.5rem; /* Increased size of the sidebar icons */
+            color: #e74c3c; /* Red color */
+        }
+
+        .sidebar-item.active i,
+        .sidebar-item:hover i {
+            color: white; /* Change icon color to white on hover or active state */
+        }
+
+       /* Logo styles */
+.logo {
+    color: #e74c3c; /* Red color for the text */
+    font-size: 5vw; /* Scale the font size based on viewport width */
+    font-weight: 700; /* Bold logo text */
+}
+
+.logo i {
+    color: #e74c3c; /* Red color for the logo icon */
+    font-size: 2.5rem; /* Fixed icon size for better visibility */
+}
+
+/* Responsive styles for logo */
+@media screen and (max-width: 1024px) {
+    .logo {
+        font-size: 7vw; /* Increase font size slightly on smaller screens */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo {
+        font-size: 10vw; /* Make the logo larger on very small screens */
+    }
+}
+
+/* Adjustments for mobile logo */
+@media screen and (max-width: 480px) {
+    .logo {
+        font-size: 12vw; /* Make the logo even larger on mobile */
+    }
+
+    .logo i {
+        font-size: 2rem; /* Slightly smaller icon on mobile */
+    }
+}
+
+
+        /* Responsive styles */
+        @media screen and (max-width: 1024px) {
+            .top-nav {
+                padding: 0.75rem;
+            }
+
+            .sidebar {
+                width: 60%;
+                z-index: 50;
+            }
+
+            .sidebar-item {
+                font-size: 0.9rem;
+            }
+
+            .sidebar-item i {
+                font-size: 1.75rem;
+            }
+
+            .main-content {
+                margin-left: 0 !important; /* Remove sidebar margin on small screens */
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .top-nav {
+                padding: 1rem;
+            }
+
+            .sidebar {
+                width: 70%;
+                padding: 1rem 0.5rem;
+            }
+
+            .sidebar-item {
+                font-size: 0.9rem;
+            }
+
+            .sidebar-item i {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Footer styles */
+        footer {
+            margin-top: auto; /* Ensures footer stays at the bottom of the page */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col">
+    <!-- Top Navbar -->
+    <div class="top-nav flex justify-between items-center p-4 fixed w-full z-50 top-0 text-white">
+        <div class="logo text-2xl font-bold flex items-center space-x-2">
+            <i class="fas fa-robot text-3xl"></i><span>SMART AI</span>
+        </div>
+        <div class="menu-icon block lg:hidden cursor-pointer" onclick="toggleSidebar()">
+            <i class="fas fa-bars text-xl"></i>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar fixed top-16 left-0 w-64 h-full lg:w-72 z-40 hidden lg:block">
+        <a href="{{ url_for('dashboard') }}" class="sidebar-item flex items-center p-4 rounded-md">
+            <i class="fas fa-home w-6"></i><span class="ml-4 text-lg">Smart Overview</span>
+        </a>
+        <a href="{{ url_for('leads_generator') }}" class="sidebar-item flex items-center p-4 rounded-md">
+            <i class="fas fa-bullhorn w-6"></i><span class="ml-4 text-lg">AI Lead Generator</span>
+        </a>
+        <a href="{{ url_for('competitor_analysis') }}" class="sidebar-item flex items-center p-4 rounded-md">
+            <i class="fas fa-robot w-6"></i><span class="ml-4 text-lg">Competitor Check</span>
+        </a>
+        <a href="{{ url_for('seo_boost') }}" class="sidebar-item flex items-center p-4 rounded-md">
+            <i class="fas fa-chart-bar w-6"></i><span class="ml-4 text-lg">Instant SEO Booster</span>
+        </a>
+
+        <!-- NEW FEATURES -->
+     <a href="{{ url_for('contact_info') }}" class="sidebar-item flex items-center p-4 rounded-md">
+    <i class="fas fa-address-book w-6"></i><span class="ml-4 text-lg">Contacts Hub</span>
+</a>
+
+<a href="{{ url_for('social_scout') }}" class="sidebar-item flex items-center p-4 rounded-md">
+    <i class="fas fa-users w-6"></i><span class="ml-4 text-lg">Social Scout</span>
+</a>
+
+<a href="{{ url_for('mass_outreach') }}" class="sidebar-item flex items-center p-4 rounded-md">
+    <i class="fas fa-broadcast-tower w-6"></i><span class="ml-4 text-lg">Mass Outreach</span>
+</a>
+
+<a href="{{ url_for('help_support') }}" class="sidebar-item flex items-center p-4 rounded-md">
+    <i class="fas fa-life-ring w-6"></i><span class="ml-4 text-lg">24/7 Support Hub</span>
+</a>
+
+
+        <!-- Log Out item -->
+        <a href="{{ url_for('logout') }}" class="sidebar-item flex items-center p-4 rounded-md logout-item">
+            <i class="fas fa-sign-out-alt w-6"></i><span class="ml-4 text-lg">Logout</span>
+        </a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-1 ml-64 lg:ml-72 mt-16 p-4 main-content">
+        <div class="w-full">
+            {% block content %}
+            <!-- Content from other templates will appear here -->
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-red-600 text-white text-center p-4 mt-8">
+        <p>&copy; 2024 Smart AI: Holiday Sales Booster App. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('hidden');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar.classList.contains('hidden')) {
+                sidebar.classList.add('hidden');
+            }
+        }
+
+        // Close sidebar when clicking outside of it
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuIcon = document.querySelector('.menu-icon');
+            if (!sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
+                closeSidebar();
+            }
+        });
+
+        // Set active link on click
+        function setActiveLink(event) {
+            const links = document.querySelectorAll('.sidebar-item');
+            links.forEach(function(item) {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        // Add click event listeners to sidebar items
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        sidebarItems.forEach(function(item) {
+            item.addEventListener('click', setActiveLink);
+        });
+
+        // Preserve active state on reload
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            sidebarItems.forEach(function(item) {
+                if (item.getAttribute('href') === currentPath) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

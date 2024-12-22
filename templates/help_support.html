@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <!-- Title Section -->
+    <h2 class="text-3xl font-semibold mb-6 text-center text-indigo-600">Help & Support</h2>
+    <div class="p-6 bg-gradient-to-r from-indigo-100 to-indigo-300 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-bold mb-4 text-gray-800">How to Use Each Feature</h3>
+        <p class="mb-6 text-gray-700">Welcome to the guide! Below you'll find detailed explanations and instructions on how to make the most of each feature in the Holiday Sales Booster App. Let’s get started!</p>
+        
+        <!-- Dashboard Overview Section -->
+        <div class="mb-6 p-4 bg-white rounded-lg shadow-md border-l-4 border-yellow-400">
+            <h4 class="text-xl font-semibold mb-2 text-gray-800"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h4>
+            <p class="mb-4 text-gray-600">The Dashboard provides a comprehensive view of your key metrics in real-time, helping you analyze your app's performance efficiently.</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>Real-Time Metrics:</strong> View live data about your traffic, sales, and conversions.</li>
+                <li><strong>Efficiency Insights:</strong> Quickly assess which areas of your business are performing well and where improvements are needed.</li>
+                <li><strong>Customizable Views:</strong> Tailor the dashboard to prioritize the most important metrics for your business.</li>
+            </ul>
+        </div>
+
+        <!-- Find Ideal Buyers Section -->
+        <div class="mb-6 p-4 bg-white rounded-lg shadow-md border-l-4 border-green-400">
+            <h4 class="text-xl font-semibold mb-2 text-gray-800"><i class="fas fa-user-check"></i> Find Ideal Buyers</h4>
+            <p class="mb-4 text-gray-600">Use AI-powered tools to generate high-quality leads that match your target customer profile.</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>AI-Driven Insights:</strong> Leverage machine learning to identify customers most likely to convert.</li>
+                <li><strong>Lead Generation:</strong> Automatically generate new leads and add them to your pipeline.</li>
+                <li><strong>Advanced Filtering:</strong> Use customizable filters to find buyers based on specific criteria, such as location, behavior, and interests.</li>
+            </ul>
+        </div>
+
+        <!-- Boost SEO Section -->
+        <div class="mb-6 p-4 bg-white rounded-lg shadow-md border-l-4 border-blue-400">
+            <h4 class="text-xl font-semibold mb-2 text-gray-800"><i class="fas fa-chart-line"></i> Boost SEO</h4>
+            <p class="mb-4 text-gray-600">Increase your visibility on major platforms and search engines with integrated SEO tools.</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>SEO Optimization:</strong> Use advanced tools to analyze your website’s SEO and get recommendations for improvement.</li>
+                <li><strong>Traffic Apps:</strong> Leverage apps designed to boost SEO across popular platforms like Google and social media.</li>
+                <li><strong>Content Insights:</strong> Analyze which content is ranking well and optimize others to drive more traffic.</li>
+            </ul>
+        </div>
+
+        <!-- Email Campaigns Section -->
+        <div class="mb-6 p-4 bg-white rounded-lg shadow-md border-l-4 border-blue-500">
+            <h4 class="text-xl font-semibold mb-2 text-gray-800"><i class="fas fa-envelope"></i> Email Campaigns</h4>
+            <p class="mb-4 text-gray-600">Reach out to multiple buyers effectively with targeted email campaigns designed for high conversion.</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>Personalized Emails:</strong> Automatically send personalized email offers to customers based on their actions.</li>
+                <li><strong>Campaign Management:</strong> Schedule and manage email campaigns to send at optimal times for maximum engagement.</li>
+                <li><strong>A/B Testing:</strong> Test different email versions to find what resonates best with your audience.</li>
+            </ul>
+        </div>
+
+        <!-- Competitors Section -->
+        <div class="mb-6 p-4 bg-white rounded-lg shadow-md border-l-4 border-yellow-400">
+            <h4 class="text-xl font-semibold mb-2 text-gray-800"><i class="fas fa-user-friends"></i> Competitors</h4>
+            <p class="mb-4 text-gray-600">Monitor your competitors and improve your conversion by analyzing their strategies and performance.</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>Competitive Analysis:</strong> Spy on competitors' offerings and strategies to stay ahead of the curve.</li>
+                <li><strong>Lead Engagement:</strong> Engage with potential buyers and improve your conversion by learning from the competition.</li>
+                <li><strong>Service Comparison:</strong> Evaluate your services against those of competitors to identify opportunities for improvement.</li>
+            </ul>
+        </div>
+
+        <!-- Support Hub Section -->
+        <div class="mb-6 p-4 bg-white rounded-lg shadow-md border-l-4 border-gray-400">
+            <h4 class="text-xl font-semibold mb-2 text-gray-800"><i class="fas fa-cogs"></i> Support Hub</h4>
+            <p class="mb-4 text-gray-600">Get expert help and access to FAQs to resolve issues and maximize the results you get from the app.</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>Expert Assistance:</strong> Reach out for personalized support from our team of experts.</li>
+                <li><strong>Frequently Asked Questions:</strong> Browse our comprehensive FAQ section to find answers to common issues.</li>
+                <li><strong>Guides & Tutorials:</strong> Access in-depth guides and tutorials to make the most of the app's features.</li>
+            </ul>
+        </div>
+
+        <!-- Contact Support Section -->
+        <div class="mb-6">
+            <h4 class="text-xl font-semibold mb-2 text-gray-800">Need Further Assistance?</h4>
+            <p class="mb-4 text-gray-600">If you need additional help, feel free to contact us anytime:</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>Email: <a href="mailto:edwardmugambi30@gmail.com" class="text-indigo-600 hover:underline">edwardmugambi30@gmail.com</a></li>
+                <li>Phone: <a href="tel:+254797974407" class="text-indigo-600 hover:underline">+254797974407</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <a href="{{ url_for('dashboard') }}" class="block mt-8 text-center text-indigo-600 hover:underline text-lg">Back to Dashboard</a>
+</div>
+{% endblock %}
