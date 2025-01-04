@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Smart AI{% endblock %}</title>
+    <title>{% block title %}LeadsIQ{% endblock %}</title>
 
     <!-- Roboto font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -209,7 +209,7 @@
     <!-- Top Navbar -->
     <div class="top-nav flex justify-between items-center p-4 fixed w-full z-50 top-0 text-white">
         <div class="logo text-2xl font-bold flex items-center space-x-2">
-            <i class="fas fa-robot text-3xl"></i><span>SMART AI</span>
+            <i class="fas fa-robot text-3xl"></i><span>LeadsIQ</span>
         </div>
         <div class="menu-icon block lg:hidden cursor-pointer" onclick="toggleSidebar()">
             <i class="fas fa-bars text-xl"></i>
@@ -219,7 +219,7 @@
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar fixed top-16 left-0 w-64 h-full lg:w-72 z-40 hidden lg:block">
         <a href="{{ url_for('dashboard') }}" class="sidebar-item flex items-center p-4 rounded-md">
-            <i class="fas fa-home w-6"></i><span class="ml-4 text-lg">Smart Overview</span>
+            <i class="fas fa-home w-6"></i><span class="ml-4 text-lg">LeadsIQ Overview</span>
         </a>
         <a href="{{ url_for('leads_generator') }}" class="sidebar-item flex items-center p-4 rounded-md">
             <i class="fas fa-bullhorn w-6"></i><span class="ml-4 text-lg">AI Lead Generator</span>
@@ -266,7 +266,7 @@
 
     <!-- Footer -->
     <footer class="bg-red-600 text-white text-center p-4 mt-8">
-        <p>&copy; 2024 Smart AI: Holiday Sales Booster App. All rights reserved.</p>
+        <p>&copy; 2024  LeadsIQ: Holiday Sales Booster App. All rights reserved.</p>
     </footer>
 
     <script>
